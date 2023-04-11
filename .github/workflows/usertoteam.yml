@@ -41,7 +41,7 @@ jobs:
             
           elif [ $ACTION == "remove-user" ]; then
            while IFS=',' read -r USERNAME ROLE || [ -n "$USERNAME" ]; do
-             curl -X DELETE -H "Authorization: Bearer ${{ secrets.ORG_ADMIN_TOKEN }} " -s "https://api.github.com/orgs/${{ env.ORG_NAME }}/teams/$REPO_NAME/memberships/$USERNAME" 
+             curl -X DELETE -H "Authorization: Bearer ${{ secrets.ORG_ADMIN_TOKEN }} " -s "https://api.github.com/orgs/${{ env.ORG_NAME }}/teams/$TEAM_NAME/memberships/$USERNAME" 
            done < <(tail -n +2 users.csv)  
             
           fi
