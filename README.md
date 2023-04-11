@@ -4,3 +4,5 @@ Add users, modify their roles, or remove users from a team specified in the csv 
 First line of users.csv should specify the action (add-user/remove-user) and Team name
 
 Rest of the lines should have the usernames and their roles (member/maintainer)
+
+If role is not specified, it is set to 'member' by default
