@@ -22,7 +22,7 @@ jobs:
         run: |
           IFS=',' read -r ACTION TEAM_NAME < <(head -n 1 users.csv)
           echo "Action: $ACTION"
-          echo "Repo name: $TEAM_NAME"
+          echo "team name: $TEAM_NAME"
           
           if [ $ACTION == "add-user" ]; then
             while IFS=',' read -r USERNAME ROLE || [ -n "$USERNAME" ]; do
@@ -31,11 +31,11 @@ jobs:
               fi
               echo "Username: $USERNAME"
               echo "Role: $ROLE"
-              echo "https://api.github.com/repos/${{ env.ORG_NAME }}/$REPO_NAME/collaborators/$USERNAME"
+              echo "https://api.github.com/repos/${{ env.ORG_NAME }}/$TEAM_NAME/collaborators/$USERNAME"
               curl -X PUT \
               -H "Accept: application/vnd.github.v3+json" \
               -H "Authorization: Bearer ${{ secrets.ORG_ADMIN_TOKEN }}" \
-              "https://api.github.com/orgs/${{ env.ORG_NAME }}/teams/$REPO_NAME/memberships/$USERNAME" \
+              "https://api.github.com/orgs/${{ env.ORG_NAME }}/teams/$TEAM_NAME/memberships/$USERNAME" \
               --data '{"role": "'$ROLE'"}'
             done < <(tail -n +2 users.csv)
             
